@@ -173,10 +173,6 @@ void program1() {
 
   // Run until temperature hits 0C.
   while (tempC > 0) {
-    // Update temperature.
-    sensors.requestTemperatures();
-    tempC = sensors.getTempCByIndex(0);
-
     if (tempC != DEVICE_DISCONNECTED_C) {
       lcd.setCursor(10, 1);
       lcd.print(tempC);
@@ -197,6 +193,10 @@ void program1() {
     }
     // Wait a little before looping.
     delay(1000); // 1s
+
+    // Update temperature.
+    sensors.requestTemperatures();
+    tempC = sensors.getTempCByIndex(0);
   }
   // Stop when temperature hits 0.
   tec.stop();

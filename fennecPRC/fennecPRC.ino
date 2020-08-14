@@ -15,9 +15,10 @@ const int DEBUG = 0;
 /*
   Temperature sensor config.
 */
+
+// Values: 9 (0.5C), 10 (0.25C), 11 (0.125C) or 12 (0.0625C) bits.
+const int TEMPERATURE_PRECISION = 10;
 const int TEMPERATURE_PIN = 13;
-const int TEMPERATURE_PRECISION =
-    10; // 9 (0.5C), 10 (0.25C), 11 (0.125C) or 12 (0.0625C) bits.
 
 OneWire oneWire(TEMPERATURE_PIN);
 DallasTemperature sensors(&oneWire);

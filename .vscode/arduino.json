@@ -1,0 +1,6 @@
+{
+    "programmer": "AVR ISP",
+    "board": "arduino:avr:uno",
+    "sketch": "fennecPRC/fennecPRC.ino",
+    "port": "/dev/tty.usbmodem14101"
+}

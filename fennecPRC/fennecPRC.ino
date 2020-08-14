@@ -201,7 +201,7 @@ void program1(float tempC) {
       }
     } else {
       lcd.setCursor(0, 1);
-      lcd.print("Temp error!");
+      lcd.print("Temp read error!");
 
       if (DEBUG == 1) {
         Serial.println("Thermometer > Error reading temperature!");

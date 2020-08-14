@@ -86,6 +86,9 @@ void setup() {
   lcd.setCursor(0, 0);
   lcd.print("fennecPRC v");
   lcd.print(VERSION, 1);
+
+  lcd.setCursor(0, 1);
+  lcd.print("Temp: ");
 }
 
 /*
@@ -100,13 +103,11 @@ void loop() {
   float tempC = sensors.getTempCByIndex(0);
 
   if (tempC != DEVICE_DISCONNECTED_C) {
-    lcd.setCursor(0, 1);
-    lcd.print("Temp: ");
-
     lcd.setCursor(10, 1);
     lcd.print(tempC);
     lcd.print("C");
   } else {
+    lcd.setCursor(0, 1);
     lcd.print("Temp error!");
   }
 

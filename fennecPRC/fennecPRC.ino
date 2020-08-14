@@ -92,11 +92,9 @@ void setup() {
   */
   lcd.begin(16, 2);
   lcd.setCursor(0, 0);
-  lcd.print("fennecPRC v");
+  lcd.print(" fennecPRC v");
   lcd.print(VERSION, 1);
 
-  lcd.setCursor(0, 1);
-  lcd.print("Temp: ");
   if (DEBUG == 1) {
     Serial.println("LCD > Initialised.");
   }
@@ -110,25 +108,6 @@ void setup() {
   Main loop.
 */
 void loop() {
-  /*
-    Display temperature.
-  */
-  sensors.requestTemperatures();
-  float tempC = sensors.getTempCByIndex(0);
-
-  if (tempC != DEVICE_DISCONNECTED_C) {
-    lcd.setCursor(10, 1);
-    lcd.print(tempC);
-    lcd.print("C");
-  } else {
-    lcd.setCursor(0, 1);
-    lcd.print("Temp error!");
-
-    if (DEBUG == 1) {
-      Serial.println("Thermometer > Error reading temperature!");
-    }
-  }
-
   /*
     Push-buttons.
   */
@@ -168,7 +147,7 @@ void loop() {
     if (DEBUG == 1) {
       Serial.println("Button > Select pressed.");
     }
-    program1(tempC);
+    program1();
   }
 }
 
@@ -176,16 +155,25 @@ void loop() {
   Program 1
   Ambient temperature minus 1C per hour until 0C.
 */
-void program1(float tempC) {
+void program1() {
+  // LCD setup.
   lcd.setCursor(0, 0);
   lcd.print("Running (P1)... ");
+
+  lcd.setCursor(0, 1);
+  lcd.print("Temp: ");
+
   if (DEBUG == 1) {
     Serial.println("P1 > Running Program 1 (P1)...");
   }
 
-  tec.start(100, TEC_COOL);
+  // Get initial temperature.
+  sensors.requestTemperatures();
+  float tempC = sensors.getTempCByIndex(0);
 
+  // Run until temperature hits 0C.
   while (tempC > 0) {
+    // Update temperature.
     sensors.requestTemperatures();
     tempC = sensors.getTempCByIndex(0);
 
@@ -207,8 +195,10 @@ void program1(float tempC) {
         Serial.println("Thermometer > Error reading temperature!");
       }
     }
+    // Wait a little before looping.
     delay(1000); // 1s
   }
+  // Stop when temperature hits 0.
   tec.stop();
   Serial.println("P1 > Reached 0C.");
 }

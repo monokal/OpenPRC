@@ -2,8 +2,6 @@
 #include "Arduino.h"
 
 // Constructor.
-// E.g. RobojaxBTS7960 tec(HBRIDGE_R_EN, HBRIDGE_RPWM, HBRIDGE_R_IS,
-// HBRIDGE_L_EN, HBRIDGE_LPWM, HBRIDGE_L_IS, DEBUG);
 BTS7960::BTS7960(int R_EN, int RPWM, int IS_R, int INH_L, int IN_L, int IS_L,
                  int DEBUG) {
   _debug = DEBUG;

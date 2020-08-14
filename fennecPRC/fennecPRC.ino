@@ -152,7 +152,7 @@ void loop() {
 }
 
 /*
-  Program 1
+  Program 1 (slow recrystallization)
   Ambient temperature minus 1C per hour until 0C.
 */
 void program1() {
@@ -176,6 +176,10 @@ void program1() {
 
   // Run until temperature hits 0C.
   while (tempC > 0) {
+    /*
+      TODO: Drop temperature by 1C per hour here.
+    */
+
     if (tempC != DEVICE_DISCONNECTED_C) {
       lcd.setCursor(10, 1);
       lcd.print(tempC);

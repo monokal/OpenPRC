@@ -4,16 +4,17 @@
   https://fennecfox.io/
 */
 
-#include <OneWire.h>
+#include "src/BTS7960/BTS7960.h"
 #include <DallasTemperature.h>
 #include <LiquidCrystal.h>
-#include "src/BTS7960/BTS7960.h"
+#include <OneWire.h>
 
 const int DEBUG = 0;
 
 // Temperature sensor.
 const int TEMPERATURE_PIN = 13;
-const int TEMPERATURE_PRECISION = 10; // 9 (0.5C), 10 (0.25C), 11 (0.125C) or 12 (0.0625C) bits.
+const int TEMPERATURE_PRECISION =
+    10; // 9 (0.5C), 10 (0.25C), 11 (0.125C) or 12 (0.0625C) bits.
 
 OneWire oneWire(TEMPERATURE_PIN);
 DallasTemperature sensors(&oneWire);
@@ -29,7 +30,8 @@ const int HBRIDGE_L_IS = 12;
 const int TEC_COOL = 1;
 const int TEC_HEAT = 0;
 
-BTS7960 tec(HBRIDGE_R_EN, HBRIDGE_RPWM, HBRIDGE_R_IS, HBRIDGE_L_EN, HBRIDGE_LPWM, HBRIDGE_L_IS, DEBUG);
+BTS7960 tec(HBRIDGE_R_EN, HBRIDGE_RPWM, HBRIDGE_R_IS, HBRIDGE_L_EN,
+            HBRIDGE_LPWM, HBRIDGE_L_IS, DEBUG);
 
 // LCD shield.
 const int LCD_RS = 8;
@@ -69,17 +71,14 @@ void loop() {
 
   float tempC = sensors.getTempCByIndex(0);
 
-  if (tempC != DEVICE_DISCONNECTED_C)
-  {
+  if (tempC != DEVICE_DISCONNECTED_C) {
     lcd.setCursor(0, 1);
     lcd.print("Temp: ");
 
     lcd.setCursor(10, 1);
     lcd.print(tempC);
     lcd.print("C");
-  }
-  else
-  {
+  } else {
     lcd.print("Thermo error!");
   }
 

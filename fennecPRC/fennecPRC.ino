@@ -10,7 +10,7 @@
 #include <OneWire.h>
 
 const float VERSION = 1.0;
-const int DEBUG = 0;
+const int DEBUG = 1;
 
 /*
   Temperature sensor config.
@@ -30,6 +30,7 @@ DeviceAddress thermometerDeviceAddress;
 const int HBRIDGE_RPWM = 5;
 const int HBRIDGE_R_EN = 4;
 const int HBRIDGE_R_IS = 8;
+
 const int HBRIDGE_LPWM = 3;
 const int HBRIDGE_L_EN = 2;
 const int HBRIDGE_L_IS = 12;
@@ -49,6 +50,7 @@ const int LCD_D4 = 4;
 const int LCD_D5 = 5;
 const int LCD_D6 = 6;
 const int LCD_D7 = 7;
+
 const int LCD_BL = 10; // Backlight.
 
 LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
@@ -65,6 +67,9 @@ void setup() {
   Serial.println("Programmable Recrystallization Chamber");
   Serial.println("https://fennecfox.io/");
   Serial.println("--------------------------------------");
+  if (DEBUG == 1) {
+    Serial.println("fennecPRC > Debug on.");
+  }
 
   /*
     Initialise thermometer.
@@ -72,6 +77,9 @@ void setup() {
   sensors.begin();
   sensors.getAddress(thermometerDeviceAddress, 0);
   sensors.setResolution(thermometerDeviceAddress, TEMPERATURE_PRECISION);
+  if (DEBUG == 1) {
+    Serial.println("Thermometer > Initialised.");
+  }
 
   /*
     Initialise TEC.
@@ -89,6 +97,13 @@ void setup() {
 
   lcd.setCursor(0, 1);
   lcd.print("Temp: ");
+  if (DEBUG == 1) {
+    Serial.println("LCD > Initialised.");
+  }
+
+  if (DEBUG == 1) {
+    Serial.println("fennecPRC > Entering main loop.");
+  }
 }
 
 /*
@@ -99,16 +114,24 @@ void loop() {
     Display temperature.
   */
   sensors.requestTemperatures();
-
   float tempC = sensors.getTempCByIndex(0);
 
   if (tempC != DEVICE_DISCONNECTED_C) {
     lcd.setCursor(10, 1);
     lcd.print(tempC);
     lcd.print("C");
+
+    // if (DEBUG == 1) {
+    //   Serial.print(tempC);
+    //   Serial.print("C ");
+    // }
   } else {
     lcd.setCursor(0, 1);
     lcd.print("Temp error!");
+
+    if (DEBUG == 1) {
+      Serial.println("Thermometer > Error reading temperature!");
+    }
   }
 
   /*
@@ -119,27 +142,51 @@ void loop() {
   // Right.
   if (button < 60) {
     lcd.print("Right");
+    if (DEBUG == 1) {
+      Serial.println("Button > Right pressed.");
+    }
   }
   // Up.
   else if (button < 200) {
     lcd.print("Up");
+    if (DEBUG == 1) {
+      Serial.println("Button > Up pressed.");
+    }
   }
   // Down.
   else if (button < 400) {
     lcd.print("Down");
+    if (DEBUG == 1) {
+      Serial.println("Button > Down pressed.");
+    }
   }
   // Left.
   else if (button < 600) {
-    lcd.setCursor(0, 0);
-    lcd.print("Heating(100%)...");
-    tec.stop();
-    tec.start(100, TEC_HEAT);
+    lcd.print("Left");
+    if (DEBUG == 1) {
+      Serial.println("Button > Left pressed.");
+    }
   }
   // Select.
   else if (button < 800) {
-    lcd.setCursor(0, 0);
-    lcd.print("Cooling(100%)...");
-    tec.stop();
-    tec.start(100, TEC_COOL);
+    lcd.print("Select");
+    if (DEBUG == 1) {
+      Serial.println("Button > Select pressed.");
+    }
+    program1();
   }
+}
+
+/*
+  Program 1 - Ambient temperature minus 1C per hour until 0C.
+*/
+void program1() {
+  lcd.setCursor(0, 0);
+  lcd.print("Running (P1)... ");
+  if (DEBUG == 1) {
+    Serial.println("Program > Running Program 1 (P1)...");
+  }
+
+  tec.stop();
+  tec.start(100, TEC_COOL);
 }

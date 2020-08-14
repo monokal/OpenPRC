@@ -28,6 +28,10 @@ void BTS7960::begin()
   pinMode(this->_INH_L, OUTPUT);
   pinMode(this->_IN_L, OUTPUT);
   pinMode(this->_IS_L, INPUT);
+
+  if (this->_debug) {
+    Serial.println("H-Bridge > Initialised.");
+  }
 }
 
 // Start function.
@@ -51,6 +55,9 @@ void BTS7960::start(int percent, int direction) {
     if (this->_debug) {
       Serial.println("H-Bridge > Invalid percentage.");
     }
+  }
+  if (this->_debug) {
+    Serial.println("H-Bridge > Started.");
   }
 }
 

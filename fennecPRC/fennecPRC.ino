@@ -120,11 +120,6 @@ void loop() {
     lcd.setCursor(10, 1);
     lcd.print(tempC);
     lcd.print("C");
-
-    // if (DEBUG == 1) {
-    //   Serial.print(tempC);
-    //   Serial.print("C ");
-    // }
   } else {
     lcd.setCursor(0, 1);
     lcd.print("Temp error!");
@@ -173,20 +168,47 @@ void loop() {
     if (DEBUG == 1) {
       Serial.println("Button > Select pressed.");
     }
-    program1();
+    program1(tempC);
   }
 }
 
 /*
-  Program 1 - Ambient temperature minus 1C per hour until 0C.
+  Program 1
+  Ambient temperature minus 1C per hour until 0C.
 */
-void program1() {
+void program1(float tempC) {
   lcd.setCursor(0, 0);
   lcd.print("Running (P1)... ");
   if (DEBUG == 1) {
-    Serial.println("Program > Running Program 1 (P1)...");
+    Serial.println("P1 > Running Program 1 (P1)...");
   }
 
-  tec.stop();
   tec.start(100, TEC_COOL);
+
+  while (tempC > 0) {
+    sensors.requestTemperatures();
+    tempC = sensors.getTempCByIndex(0);
+
+    if (tempC != DEVICE_DISCONNECTED_C) {
+      lcd.setCursor(10, 1);
+      lcd.print(tempC);
+      lcd.print("C");
+
+      if (DEBUG == 1) {
+        Serial.print("P1 > Current temperature is: ");
+        Serial.print(tempC);
+        Serial.println("C");
+      }
+    } else {
+      lcd.setCursor(0, 1);
+      lcd.print("Temp error!");
+
+      if (DEBUG == 1) {
+        Serial.println("Thermometer > Error reading temperature!");
+      }
+    }
+    delay(1000); // 1s
+  }
+  tec.stop();
+  Serial.println("P1 > Reached 0C.");
 }

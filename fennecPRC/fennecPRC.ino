@@ -171,6 +171,9 @@ void program1() {
   sensors.requestTemperatures();
   float tempC = sensors.getTempCByIndex(0);
 
+  // Start cooling.
+  tec.start(100, TEC_COOL);
+
   // Run until temperature hits 0C.
   while (tempC > 0) {
     if (tempC != DEVICE_DISCONNECTED_C) {

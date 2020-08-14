@@ -7,7 +7,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <LiquidCrystal.h>
-#include <BTS7960.h>
+#include "src/BTS7960/BTS7960.h"
 
 const int DEBUG = 0;
 

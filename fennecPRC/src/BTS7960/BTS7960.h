@@ -1,13 +1,13 @@
 #ifndef BTS7960_H
+
 #define BTS7960_H
 
 #include "Arduino.h"
 
 class BTS7960 {
 public:
-  // Get pin values.
   BTS7960(int R_EN, int RPWM, int IS_R, int INH_L, int IN_L, int IS_L,
-          int DEBUG)
+          int DEBUG);
 
   void begin();
   void start(int percent, int direction);
@@ -15,15 +15,16 @@ public:
 
 private:
   int toPWM(int percent);
-  _debug = DEBUG;
 
-  _R_EN = R_EN;
-  _RPWM = RPWM;
-  _IS_R = IS_R;
+  int _debug;
 
-  _INH_L = INH_L;
-  _IN_L = IN_L;
-  _IS_L = IS_L;
+  int _R_EN;
+  int _RPWM;
+  int _IS_R;
+
+  int _INH_L;
+  int _IN_L;
+  int _IS_L;
 
   double version = 1.00;
 };

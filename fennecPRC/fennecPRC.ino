@@ -4,19 +4,19 @@
   https://fennecfox.io/
 
   Pins:
-    0  = HBRIDGE_R_EN (OR serial if DEBUG)
-    1  = HBRIDGE_RPWM (OR serial if DEBUG)
+    0  = Serial (debug)
+    1  = Serial (debug)
     2  = HBRIDGE_L_EN
-    3  = HBRIDGE_LPWM
+    3  = HBRIDGE_LPWM (PWM)
     4  = LCD_D4
-    5  = LCD_D5
-    6  = LCD_D6
+    5  = LCD_D5 (PWM)
+    6  = LCD_D6 (PWM)
     7  = LCD_D7
     8  = LCD_RS
-    9  = LCD_EN
-    10 = LCD_BL
-    11 = HBRIDGE_R_IS
-    12 = HBRIDGE_L_IS
+    9  = LCD_EN (PWM)
+    10 = LCD_BL (PWM)
+    11 = HBRIDGE_RPWM (PWM)
+    12 = HBRIDGE_R_EN
     13 = TEMPERATURE_PIN
     A0 = LCD shield buttons
     A1 = BUZZER
@@ -29,10 +29,7 @@
 
 const float VERSION = 1.0;
 
-// Warning: Setting to true will interfere with HBRIDGE_R_EN (pin 0)
-// and HBRIDGE_RPWM (pin1) as they're used for serial communication.
-// TODO: Switch to spare analog pins?
-const bool DEBUG = false;
+const bool DEBUG = true;
 String command;
 
 // Disable the buzzer.
@@ -55,13 +52,13 @@ DeviceAddress thermometerDeviceAddress;
 */
 
 // Define pins.
-const int HBRIDGE_RPWM = 1;
-const int HBRIDGE_R_EN = 0;
-const int HBRIDGE_R_IS = 11;
+const int HBRIDGE_RPWM = 11;
+const int HBRIDGE_R_EN = 12;
+const int HBRIDGE_R_IS = 99; // TODO: Dummy value. R_IS not in use.
 
 const int HBRIDGE_LPWM = 3;
 const int HBRIDGE_L_EN = 2;
-const int HBRIDGE_L_IS = 12;
+const int HBRIDGE_L_IS = 99; // TODO: Dummy value. L_IS not in use.
 
 // H-Bridge "direction".
 const int TEC_COOL = 1;

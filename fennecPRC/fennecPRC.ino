@@ -125,9 +125,13 @@ void setup() {
     Initialise LCD.
   */
   lcd.begin(16, 2);
+
   lcd.setCursor(0, 0);
   lcd.print(" fennecPRC v");
   lcd.print(VERSION, 1);
+
+  lcd.setCursor(0, 1);
+  lcd.print("      IDLE      ");
 
   if (DEBUG == 1) {
     Serial.println("LCD > Initialised.");

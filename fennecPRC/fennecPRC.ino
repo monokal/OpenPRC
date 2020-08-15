@@ -103,7 +103,7 @@ void setup() {
     Initialise buzzer.
   */
   pinMode(BUZZER, OUTPUT);
-  tone(BUZZER, 392, 250);
+  tone(BUZZER, 466, 250);
 
   /*
     Initialise thermometer.
@@ -218,7 +218,17 @@ void serialCommands() {
   Ambient temperature minus 1C per hour until 0C.
 */
 void program1() {
-  // LCD setup.
+  // LCD/Buzzer acknowledgement.
+  lcd.setCursor(0, 0);
+  lcd.print("Starting (P1)... ");
+
+  for (int i = 0; i < 3; i++) {
+    tone(BUZZER, 392, 1000);
+    delay(2000);
+    noTone(BUZZER);
+  }
+  tone(BUZZER, 466, 250);
+
   lcd.setCursor(0, 0);
   lcd.print("Running (P1)... ");
 

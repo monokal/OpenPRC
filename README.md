@@ -1,1 +1,3 @@
 # fennecPRC
+
+Programmable Recrystallization Chamber

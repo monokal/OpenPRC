@@ -25,8 +25,6 @@ private:
   int _INH_L;
   int _IN_L;
   int _IS_L;
-
-  double version = 1.00;
 };
 
 #endif

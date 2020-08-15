@@ -55,6 +55,11 @@ const int LCD_BL = 10; // Backlight.
 
 LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
 
+/*
+  Buzzer config.
+*/
+const int BUZZER = 11;
+
 // Soft-reset function.
 void (*resetFunc)(void) = 0;
 
@@ -64,6 +69,10 @@ String command;
   Setup.
 */
 void setup() {
+  // Play buzzer.
+  pinMode(BUZZER, OUTPUT);
+  tone(BUZZER, 1000, 500);
+
   Serial.begin(9600);
 
   Serial.println("--------------------------------------");

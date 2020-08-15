@@ -71,7 +71,7 @@ void setup() {
   Serial.println(VERSION, 1);
   Serial.println("Programmable Recrystallization Chamber");
   Serial.println("https://fennecfox.io/");
-  Serial.println("\nSerial commands: reset");
+  Serial.println("\nSerial commands: reset, program1");
   Serial.println("--------------------------------------");
   if (DEBUG == 1) {
     Serial.println("fennecPRC > Debug on.");
@@ -171,6 +171,8 @@ void serialCommands() {
     // "reset" command.
     if (command.equals("reset")) {
       resetFunc();
+    } else if (command.equals("program1")) {
+      program1();
     } else {
       Serial.println("fennecPRC > Invalid serial command.");
     }

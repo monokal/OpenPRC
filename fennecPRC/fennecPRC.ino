@@ -4,8 +4,8 @@
   https://fennecfox.io/
 
   Pins:
-    0  = HBRIDGE_R_EN
-    1  = HBRIDGE_RPWM
+    0  = HBRIDGE_R_EN (OR serial if DEBUG = 1)
+    1  = HBRIDGE_RPWM (OR serial if DEBUG = 1)
     2  = HBRIDGE_L_EN
     3  = HBRIDGE_LPWM
     4  = LCD_D4

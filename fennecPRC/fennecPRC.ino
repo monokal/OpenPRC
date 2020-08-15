@@ -55,6 +55,11 @@ const int LCD_BL = 10; // Backlight.
 
 LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
 
+// Soft-reset function.
+void (*resetFunc)(void) = 0;
+
+String command;
+
 /*
   Setup.
 */
@@ -66,6 +71,7 @@ void setup() {
   Serial.println(VERSION, 1);
   Serial.println("Programmable Recrystallization Chamber");
   Serial.println("https://fennecfox.io/");
+  Serial.println("\nSerial commands: reset");
   Serial.println("--------------------------------------");
   if (DEBUG == 1) {
     Serial.println("fennecPRC > Debug on.");
@@ -108,6 +114,9 @@ void setup() {
   Main loop.
 */
 void loop() {
+  // Listen for serial commands.
+  serialCommands();
+
   /*
     Push-buttons.
   */
@@ -152,6 +161,23 @@ void loop() {
 }
 
 /*
+  Serial input commands.
+*/
+void serialCommands() {
+  if (Serial.available()) {
+    command = Serial.readStringUntil('\n');
+    command.trim();
+
+    // "reset" command.
+    if (command.equals("reset")) {
+      resetFunc();
+    } else {
+      Serial.println("fennecPRC > Invalid serial command.");
+    }
+  }
+}
+
+/*
   Program 1 (slow recrystallization)
   Ambient temperature minus 1C per hour until 0C.
 */
@@ -176,6 +202,9 @@ void program1() {
 
   // Run until temperature hits 0C.
   while (tempC > 0) {
+    // Listen for serial commands.
+    serialCommands();
+
     /*
       TODO: Drop temperature by 1C per hour here.
     */

@@ -157,35 +157,30 @@ void loop() {
 
   // Right.
   if (button < 60) {
-    lcd.print("Right");
     if (DEBUG) {
       Serial.println("Button > Right pressed.");
     }
   }
   // Up.
   else if (button < 200) {
-    lcd.print("Up");
     if (DEBUG) {
       Serial.println("Button > Up pressed.");
     }
   }
   // Down.
   else if (button < 400) {
-    lcd.print("Down");
     if (DEBUG) {
       Serial.println("Button > Down pressed.");
     }
   }
   // Left.
   else if (button < 600) {
-    lcd.print("Left");
     if (DEBUG) {
       Serial.println("Button > Left pressed.");
     }
   }
   // Select.
   else if (button < 800) {
-    lcd.print("Select");
     if (DEBUG) {
       Serial.println("Button > Select pressed.");
     }
@@ -254,7 +249,9 @@ void buzzer(String type) {
 void program1() {
   // LCD/Buzzer acknowledgement.
   lcd.setCursor(0, 0);
-  lcd.print("Starting (P1)... ");
+  lcd.print("Starting (P1)...");
+  lcd.setCursor(0, 1);
+  lcd.print("                ");
 
   buzzer("countdown");
 

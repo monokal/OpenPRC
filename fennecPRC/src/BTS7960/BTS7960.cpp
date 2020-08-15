@@ -21,11 +21,11 @@ void BTS7960::begin() {
   // Setup pins.
   pinMode(this->_RPWM, OUTPUT);
   pinMode(this->_R_EN, OUTPUT);
-  pinMode(this->_R_IS, OUTPUT);
+  // pinMode(this->_R_IS, OUTPUT);
 
   pinMode(this->_LPWM, OUTPUT);
   pinMode(this->_L_EN, OUTPUT);
-  pinMode(this->_L_IS, OUTPUT);
+  // pinMode(this->_L_IS, OUTPUT);
 
   if (this->_debug) {
     Serial.println("H-Bridge > Initialised.");

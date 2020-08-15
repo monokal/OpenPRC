@@ -34,7 +34,7 @@ const float VERSION = 1.0;
 const int DEBUG = 0;
 
 // Disable the buzzer.
-const int SILENT = 1;
+const int SILENT = 0;
 
 // Serial input commands.
 String command;

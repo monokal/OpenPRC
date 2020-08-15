@@ -3,7 +3,7 @@
 
 // Constructor.
 BTS7960::BTS7960(int R_EN, int RPWM, int IS_R, int INH_L, int IN_L, int IS_L,
-                 int DEBUG) {
+                 bool DEBUG) {
   _debug = DEBUG;
 
   // Define pins.

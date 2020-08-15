@@ -7,7 +7,7 @@
 class BTS7960 {
 public:
   BTS7960(int R_EN, int RPWM, int IS_R, int INH_L, int IN_L, int IS_L,
-          int DEBUG);
+          bool DEBUG);
 
   void begin();
   void start(int percent, int direction);
@@ -16,7 +16,7 @@ public:
 private:
   int toPWM(int percent);
 
-  int _debug;
+  bool _debug;
 
   int _R_EN;
   int _RPWM;

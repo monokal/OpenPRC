@@ -18,6 +18,8 @@
     11 = HBRIDGE_R_IS
     12 = HBRIDGE_L_IS
     13 = TEMPERATURE_PIN
+    A0 = LCD shield buttons
+    A1 = BUZZER
 */
 
 #include "src/BTS7960/BTS7960.h"
@@ -30,6 +32,8 @@ const float VERSION = 1.0;
 // Warning: Setting to 1 will interfere with HBRIDGE_R_EN (pin 0)
 // and HBRIDGE_RPWM (pin1) as they're used for serial communication.
 const int DEBUG = 0;
+
+String command;
 
 /*
   Temperature sensor config.
@@ -74,10 +78,10 @@ const int LCD_BL = 10; // Backlight.
 
 LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
 
-// Soft-reset function.
-void (*resetFunc)(void) = 0;
-
-String command;
+/*
+  Buzzer config.
+*/
+const int BUZZER = A1;
 
 /*
   Setup.
@@ -94,6 +98,12 @@ void setup() {
     Serial.println("\nSerial commands: reset, program1");
     Serial.println("--------------------------------------");
   }
+
+  /*
+    Initialise buzzer.
+  */
+  pinMode(BUZZER, OUTPUT);
+  tone(BUZZER, 392, 250);
 
   /*
     Initialise thermometer.
@@ -176,6 +186,11 @@ void loop() {
     program1();
   }
 }
+
+/*
+  Soft-reset function.
+*/
+void (*resetFunc)(void) = 0;
 
 /*
   Serial input commands.

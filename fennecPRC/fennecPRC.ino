@@ -137,7 +137,7 @@ void setup() {
 
   if (DEBUG) {
     Serial.println("LCD > Initialised.");
-    Serial.println("fennecPRC > Entering main loop.");
+    Serial.println("fennecPRC > Ready.");
   }
 }
 

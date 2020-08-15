@@ -6,7 +6,6 @@ BTS7960::BTS7960(int R_EN, int RPWM, int IS_R, int INH_L, int IN_L, int IS_L,
                  bool DEBUG) {
   _debug = DEBUG;
 
-  // Define pins.
   _R_EN = R_EN;
   _RPWM = RPWM;
   _IS_R = IS_R;
@@ -17,7 +16,9 @@ BTS7960::BTS7960(int R_EN, int RPWM, int IS_R, int INH_L, int IN_L, int IS_L,
 }
 
 void BTS7960::begin()
-// Setup pins.
+/*
+  Define pins.
+*/
 {
   // Right.
   pinMode(this->_R_EN, OUTPUT);

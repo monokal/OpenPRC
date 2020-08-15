@@ -153,6 +153,7 @@ void loop() {
 
   /*
     Push-buttons.
+    TODO: Menu system to select program.
   */
   int button = analogRead(0);
 
@@ -185,7 +186,6 @@ void loop() {
     if (DEBUG) {
       Serial.println("Button > Select pressed.");
     }
-    // TODO: Menu system for
     program1();
   }
 }

@@ -133,7 +133,7 @@ void setup() {
   lcd.print(VERSION, 1);
 
   lcd.setCursor(0, 1);
-  lcd.print("      IDLE      ");
+  lcd.print("     READY      ");
 
   if (DEBUG) {
     Serial.println("LCD > Initialised.");

@@ -26,7 +26,10 @@
 #include <OneWire.h>
 
 const float VERSION = 1.0;
-const int DEBUG = 1;
+
+// Warning: Setting to 1 will interfere with HBRIDGE_R_EN (pin 0)
+// and HBRIDGE_RPWM (pin1) as they're used for serial communication.
+const int DEBUG = 0;
 
 /*
   Temperature sensor config.
@@ -80,17 +83,16 @@ String command;
   Setup.
 */
 void setup() {
-  Serial.begin(9600);
-
-  Serial.println("--------------------------------------");
-  Serial.print("fennecPRC v");
-  Serial.println(VERSION, 1);
-  Serial.println("Programmable Recrystallization Chamber");
-  Serial.println("https://fennecfox.io/");
-  Serial.println("\nSerial commands: reset, program1");
-  Serial.println("--------------------------------------");
   if (DEBUG == 1) {
-    Serial.println("fennecPRC > Debug on.");
+    Serial.begin(9600);
+
+    Serial.println("--------------------------------------");
+    Serial.print("fennecPRC v");
+    Serial.println(VERSION, 1);
+    Serial.println("Programmable Recrystallization Chamber");
+    Serial.println("https://fennecfox.io/");
+    Serial.println("\nSerial commands: reset, program1");
+    Serial.println("--------------------------------------");
   }
 
   /*
@@ -119,9 +121,6 @@ void setup() {
 
   if (DEBUG == 1) {
     Serial.println("LCD > Initialised.");
-  }
-
-  if (DEBUG == 1) {
     Serial.println("fennecPRC > Entering main loop.");
   }
 }
@@ -131,7 +130,9 @@ void setup() {
 */
 void loop() {
   // Listen for serial commands.
-  serialCommands();
+  if (DEBUG == 1) {
+    serialCommands();
+  }
 
   /*
     Push-buttons.
@@ -190,7 +191,9 @@ void serialCommands() {
     } else if (command.equals("program1")) {
       program1();
     } else {
-      Serial.println("fennecPRC > Invalid serial command.");
+      if (DEBUG == 1) {
+        Serial.println("fennecPRC > Invalid serial command.");
+      }
     }
   }
 }
@@ -254,5 +257,7 @@ void program1() {
   }
   // Stop when temperature hits 0.
   tec.stop();
-  Serial.println("P1 > Reached 0C.");
+  if (DEBUG == 1) {
+    Serial.println("P1 > Reached 0C.");
+  }
 }

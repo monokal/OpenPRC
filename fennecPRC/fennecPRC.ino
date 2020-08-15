@@ -3,8 +3,6 @@
   Programmable Recrystallization Chamber
   https://fennecfox.io/
 
-  4, 5, 8
-
   Pins:
     0  = HBRIDGE_R_EN
     1  = HBRIDGE_RPWM

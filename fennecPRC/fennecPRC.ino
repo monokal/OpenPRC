@@ -31,6 +31,7 @@ const float VERSION = 1.0;
 
 // Warning: Setting to true will interfere with HBRIDGE_R_EN (pin 0)
 // and HBRIDGE_RPWM (pin1) as they're used for serial communication.
+// TODO: Switch to spare analog pins?
 const bool DEBUG = false;
 String command;
 
@@ -52,6 +53,8 @@ DeviceAddress thermometerDeviceAddress;
 /*
   H-bridge (for TEC) config.
 */
+
+// Define pins.
 const int HBRIDGE_RPWM = 1;
 const int HBRIDGE_R_EN = 0;
 const int HBRIDGE_R_IS = 11;
@@ -60,6 +63,7 @@ const int HBRIDGE_LPWM = 3;
 const int HBRIDGE_L_EN = 2;
 const int HBRIDGE_L_IS = 12;
 
+// H-Bridge "direction".
 const int TEC_COOL = 1;
 const int TEC_HEAT = 0;
 

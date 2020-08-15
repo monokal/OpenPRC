@@ -43,17 +43,17 @@ void BTS7960::start(int percent, int direction) {
   int percentPWM = toPWM(percent);
 
   if (percent >= 0 && percent <= 100) {
-    // Enable all.
-    digitalWrite(this->_R_EN, HIGH);
-    digitalWrite(this->_L_EN, HIGH);
-
-    // Right.
+    // Start right.
     if (direction == 0) {
-      analogWrite(this->_RPWM, percentPWM);
+      digitalWrite(this->_L_EN, LOW);       // Disable L side.
+      digitalWrite(this->_R_EN, HIGH);      // Enable R side.
+      analogWrite(this->_RPWM, percentPWM); // Power R side.
     }
-    // Left.
+    // Start left.
     else if (direction == 1) {
-      analogWrite(this->_LPWM, percentPWM);
+      digitalWrite(this->_R_EN, LOW);       // Disable R side.
+      digitalWrite(this->_L_EN, HIGH);      // Enable L side.
+      analogWrite(this->_LPWM, percentPWM); // Power L side.
     }
     // Invalid.
     else {
@@ -73,6 +73,7 @@ void BTS7960::start(int percent, int direction) {
 
 // Stop function.
 void BTS7960::stop() {
+  // Disable both sides.
   digitalWrite(this->_R_EN, LOW);
   digitalWrite(this->_L_EN, LOW);
 

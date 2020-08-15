@@ -2,6 +2,24 @@
   fennecPRC
   Programmable Recrystallization Chamber
   https://fennecfox.io/
+
+  4, 5, 8
+
+  Pins:
+    0  = HBRIDGE_R_EN
+    1  = HBRIDGE_RPWM
+    2  = HBRIDGE_L_EN
+    3  = HBRIDGE_LPWM
+    4  = LCD_D4
+    5  = LCD_D5
+    6  = LCD_D6
+    7  = LCD_D7
+    8  = LCD_RS
+    9  = LCD_EN
+    10 = LCD_BL
+    11 = HBRIDGE_R_IS
+    12 = HBRIDGE_L_IS
+    13 = TEMPERATURE_PIN
 */
 
 #include "src/BTS7960/BTS7960.h"
@@ -27,9 +45,9 @@ DeviceAddress thermometerDeviceAddress;
 /*
   H-bridge (for TEC) config.
 */
-const int HBRIDGE_RPWM = 5;
-const int HBRIDGE_R_EN = 4;
-const int HBRIDGE_R_IS = 8;
+const int HBRIDGE_RPWM = 1;
+const int HBRIDGE_R_EN = 0;
+const int HBRIDGE_R_IS = 11;
 
 const int HBRIDGE_LPWM = 3;
 const int HBRIDGE_L_EN = 2;

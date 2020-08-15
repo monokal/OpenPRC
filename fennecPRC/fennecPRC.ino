@@ -1,5 +1,5 @@
 /*
-  fennecPRC
+  fennecPRC | Main.
   Programmable Recrystallization Chamber
   https://fennecfox.io/
 

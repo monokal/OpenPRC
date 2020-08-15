@@ -1,3 +1,9 @@
+/*
+  fennecPRC | BTS7960 H-Bridge library.
+  Programmable Recrystallization Chamber
+  https://fennecfox.io/
+*/
+
 #include "BTS7960.h"
 #include "Arduino.h"
 

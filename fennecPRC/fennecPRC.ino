@@ -33,6 +33,10 @@ const float VERSION = 1.0;
 // and HBRIDGE_RPWM (pin1) as they're used for serial communication.
 const int DEBUG = 0;
 
+// Disable the buzzer.
+const int SILENT = 0;
+
+// Serial input commands.
 String command;
 
 /*
@@ -103,7 +107,7 @@ void setup() {
     Initialise buzzer.
   */
   pinMode(BUZZER, OUTPUT);
-  tone(BUZZER, 466, 250);
+  buzzer("ok");
 
   /*
     Initialise thermometer.
@@ -192,7 +196,7 @@ void loop() {
 }
 
 /*
-  Soft-reset function.
+  Soft-reset.
 */
 void (*resetFunc)(void) = 0;
 
@@ -218,6 +222,33 @@ void serialCommands() {
 }
 
 /*
+  Buzzer.
+*/
+void buzzer(String type) {
+  if (SILENT != 1) {
+    // Error - 3 long A4 notes.
+    if (type == "error") {
+      for (int i = 0; i < 3; i++) {
+        tone(BUZZER, 440, 1000);
+        delay(2000);
+        noTone(BUZZER);
+      }
+      // OK - 1 short B7 note.
+    } else if (type == "ok") {
+      tone(BUZZER, 3951, 250);
+      // Countdown - Error then OK.
+    } else if (type == "countdown") {
+      buzzer("error");
+      buzzer("ok");
+    } else {
+      if (DEBUG == 1) {
+        Serial.println("fennecPRC > Invalid buzzer type.");
+      }
+    }
+  }
+}
+
+/*
   Program 1 (slow recrystallization)
   Ambient temperature minus 1C per hour until 0C.
 */
@@ -226,12 +257,7 @@ void program1() {
   lcd.setCursor(0, 0);
   lcd.print("Starting (P1)... ");
 
-  for (int i = 0; i < 3; i++) {
-    tone(BUZZER, 392, 1000);
-    delay(2000);
-    noTone(BUZZER);
-  }
-  tone(BUZZER, 466, 250);
+  buzzer("countdown");
 
   lcd.setCursor(0, 0);
   lcd.print("Running (P1)... ");
@@ -260,7 +286,8 @@ void program1() {
     */
 
     if (tempC != DEVICE_DISCONNECTED_C) {
-      lcd.setCursor(10, 1);
+      lcd.setCursor(6, 1);
+      lcd.print("    ");
       lcd.print(tempC);
       lcd.print("C");
 
@@ -276,6 +303,8 @@ void program1() {
       if (DEBUG == 1) {
         Serial.println("Thermometer > Error reading temperature!");
       }
+
+      buzzer("error");
     }
     // Wait a little before looping.
     delay(1000); // 1s
@@ -288,5 +317,6 @@ void program1() {
   tec.stop();
   if (DEBUG == 1) {
     Serial.println("P1 > Reached 0C.");
+    buzzer("ok");
   }
 }

@@ -61,8 +61,8 @@ const int HBRIDGE_L_EN = 2;
 const int HBRIDGE_L_IS = 99; // TODO: Dummy value. L_IS not in use.
 
 // H-Bridge "direction".
-const int TEC_COOL = 1;
-const int TEC_HEAT = 0;
+const int TEC_COOL = 0;
+const int TEC_HEAT = 1;
 
 BTS7960 tec(HBRIDGE_RPWM, HBRIDGE_R_EN, HBRIDGE_R_IS, HBRIDGE_LPWM,
             HBRIDGE_L_EN, HBRIDGE_L_IS, DEBUG);

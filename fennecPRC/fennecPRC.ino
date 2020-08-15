@@ -29,7 +29,7 @@
 
 const float VERSION = 1.0;
 
-// Warning: Setting to false will interfere with HBRIDGE_R_EN (pin 0)
+// Warning: Setting to true will interfere with HBRIDGE_R_EN (pin 0)
 // and HBRIDGE_RPWM (pin1) as they're used for serial communication.
 const bool DEBUG = false;
 String command;

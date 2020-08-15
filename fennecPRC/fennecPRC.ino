@@ -279,7 +279,7 @@ void program1() {
     serialCommands();
 
     /*
-      TODO: Drop temperature by 1C per hour here.
+      TODO: Drop temperature by 1C per hour.
     */
 
     if (tempC != DEVICE_DISCONNECTED_C) {

@@ -63,8 +63,8 @@ const int HBRIDGE_L_IS = 12;
 const int TEC_COOL = 1;
 const int TEC_HEAT = 0;
 
-BTS7960 tec(HBRIDGE_R_EN, HBRIDGE_RPWM, HBRIDGE_R_IS, HBRIDGE_L_EN,
-            HBRIDGE_LPWM, HBRIDGE_L_IS, DEBUG);
+BTS7960 tec(HBRIDGE_RPWM, HBRIDGE_R_EN, HBRIDGE_R_IS, HBRIDGE_LPWM,
+            HBRIDGE_L_EN, HBRIDGE_L_IS, DEBUG);
 
 /*
   LCD shield config.
@@ -118,10 +118,10 @@ void setup() {
   }
 
   /*
-    Initialise TEC.
+    Initialise H-Bridge/TEC.
   */
   tec.begin();
-  tec.stop(); // Stop the TEC on reset.
+  tec.stop(); // Stop on reset.
 
   /*
     Initialise LCD.
@@ -133,7 +133,7 @@ void setup() {
   lcd.print(VERSION, 1);
 
   lcd.setCursor(0, 1);
-  lcd.print("     READY      ");
+  lcd.print(" READY...");
 
   if (DEBUG) {
     Serial.println("LCD > Initialised.");
@@ -272,7 +272,7 @@ void program1() {
   sensors.requestTemperatures();
   float tempC = sensors.getTempCByIndex(0);
 
-  // Start cooling.
+  // Start cooling at 100% power.
   tec.start(100, TEC_COOL);
 
   // Run until temperature hits 0C.

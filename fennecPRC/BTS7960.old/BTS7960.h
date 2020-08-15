@@ -6,7 +6,7 @@
 
 class BTS7960 {
 public:
-  BTS7960(int RPWM, int R_EN, int R_IS, int LPWM, int L_EN, int L_IS,
+  BTS7960(int R_EN, int RPWM, int IS_R, int INH_L, int IN_L, int IS_L,
           bool DEBUG);
 
   void begin();
@@ -18,13 +18,13 @@ private:
 
   bool _debug;
 
-  int _RPWM;
   int _R_EN;
-  int _R_IS;
+  int _RPWM;
+  int _IS_R;
 
-  int _LPWM;
-  int _L_EN;
-  int _L_IS;
+  int _INH_L;
+  int _IN_L;
+  int _IS_L;
 };
 
 #endif

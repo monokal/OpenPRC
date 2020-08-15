@@ -2,33 +2,30 @@
 #include "Arduino.h"
 
 // Constructor.
-BTS7960::BTS7960(int R_EN, int RPWM, int IS_R, int INH_L, int IN_L, int IS_L,
+BTS7960::BTS7960(int RPWM, int R_EN, int R_IS, int LPWM, int L_EN, int L_IS,
                  bool DEBUG) {
   _debug = DEBUG;
 
-  _R_EN = R_EN;
+  // Get pins.
   _RPWM = RPWM;
-  _IS_R = IS_R;
+  _R_EN = R_EN;
+  _R_IS = R_IS;
 
-  _INH_L = INH_L;
-  _IN_L = IN_L;
-  _IS_L = IS_L;
+  _LPWM = LPWM;
+  _L_EN = L_EN;
+  _L_IS = L_IS;
 }
 
-void BTS7960::begin()
-/*
-  Define pins.
-*/
-{
-  // Right.
-  pinMode(this->_R_EN, OUTPUT);
+// Begin function.
+void BTS7960::begin() {
+  // Setup pins.
   pinMode(this->_RPWM, OUTPUT);
-  pinMode(this->_IS_R, INPUT);
+  pinMode(this->_R_EN, OUTPUT);
+  pinMode(this->_R_IS, OUTPUT);
 
-  // Left.
-  pinMode(this->_INH_L, OUTPUT);
-  pinMode(this->_IN_L, OUTPUT);
-  pinMode(this->_IS_L, INPUT);
+  pinMode(this->_LPWM, OUTPUT);
+  pinMode(this->_L_EN, OUTPUT);
+  pinMode(this->_L_IS, OUTPUT);
 
   if (this->_debug) {
     Serial.println("H-Bridge > Initialised.");
@@ -37,21 +34,27 @@ void BTS7960::begin()
 
 // Start function.
 void BTS7960::start(int percent, int direction) {
-  digitalWrite(this->_R_EN, HIGH);
-  digitalWrite(this->_INH_L, HIGH);
-
-  int pwm1Pin, pwm2Pin;
-
-  if (direction == 1) {
-    pwm1Pin = this->_IN_L;
-    pwm2Pin = this->_RPWM;
-  } else {
-    pwm1Pin = this->_RPWM;
-    pwm2Pin = this->_IN_L;
-  }
+  int percentPWM = toPWM(percent);
 
   if (percent >= 0 && percent <= 100) {
-    analogWrite(pwm2Pin, toPWM(percent));
+    // Enable all.
+    digitalWrite(this->_R_EN, HIGH);
+    digitalWrite(this->_L_EN, HIGH);
+
+    // Right.
+    if (direction == 0) {
+      analogWrite(this->_RPWM, percentPWM);
+    }
+    // Left.
+    else if (direction == 1) {
+      analogWrite(this->_LPWM, percentPWM);
+    }
+    // Invalid.
+    else {
+      if (this->_debug) {
+        Serial.println("H-Bridge > Invalid direction.");
+      }
+    }
   } else {
     if (this->_debug) {
       Serial.println("H-Bridge > Invalid percentage.");
@@ -64,13 +67,13 @@ void BTS7960::start(int percent, int direction) {
 
 // Stop function.
 void BTS7960::stop() {
-  digitalWrite(this->_RPWM, LOW);
-  digitalWrite(this->_IN_L, LOW);
+  digitalWrite(this->_R_EN, LOW);
+  digitalWrite(this->_L_EN, LOW);
 
   if (this->_debug) {
     Serial.println("H-Bridge > Stopped.");
   }
 }
 
-// Converts a percentage (0-100) to 0-255.
+// Converts a percentage (0-100) to 0-255 for PWM.
 int BTS7960::toPWM(int percent) { return map(percent, 0, 100, 0, 255); }

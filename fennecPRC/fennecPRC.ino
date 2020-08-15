@@ -29,15 +29,13 @@
 
 const float VERSION = 1.0;
 
-// Warning: Setting to 1 will interfere with HBRIDGE_R_EN (pin 0)
+// Warning: Setting to false will interfere with HBRIDGE_R_EN (pin 0)
 // and HBRIDGE_RPWM (pin1) as they're used for serial communication.
-const int DEBUG = 0;
+const bool DEBUG = false;
+String command;
 
 // Disable the buzzer.
-const int SILENT = 0;
-
-// Serial input commands.
-String command;
+const bool SILENT = false;
 
 /*
   Temperature sensor config.
@@ -91,7 +89,7 @@ const int BUZZER = A1;
   Setup.
 */
 void setup() {
-  if (DEBUG == 1) {
+  if (DEBUG) {
     Serial.begin(9600);
 
     Serial.println("--------------------------------------");
@@ -115,7 +113,7 @@ void setup() {
   sensors.begin();
   sensors.getAddress(thermometerDeviceAddress, 0);
   sensors.setResolution(thermometerDeviceAddress, TEMPERATURE_PRECISION);
-  if (DEBUG == 1) {
+  if (DEBUG) {
     Serial.println("Thermometer > Initialised.");
   }
 
@@ -137,7 +135,7 @@ void setup() {
   lcd.setCursor(0, 1);
   lcd.print("      IDLE      ");
 
-  if (DEBUG == 1) {
+  if (DEBUG) {
     Serial.println("LCD > Initialised.");
     Serial.println("fennecPRC > Entering main loop.");
   }
@@ -148,7 +146,7 @@ void setup() {
 */
 void loop() {
   // Listen for serial commands.
-  if (DEBUG == 1) {
+  if (DEBUG) {
     serialCommands();
   }
 
@@ -160,35 +158,35 @@ void loop() {
   // Right.
   if (button < 60) {
     lcd.print("Right");
-    if (DEBUG == 1) {
+    if (DEBUG) {
       Serial.println("Button > Right pressed.");
     }
   }
   // Up.
   else if (button < 200) {
     lcd.print("Up");
-    if (DEBUG == 1) {
+    if (DEBUG) {
       Serial.println("Button > Up pressed.");
     }
   }
   // Down.
   else if (button < 400) {
     lcd.print("Down");
-    if (DEBUG == 1) {
+    if (DEBUG) {
       Serial.println("Button > Down pressed.");
     }
   }
   // Left.
   else if (button < 600) {
     lcd.print("Left");
-    if (DEBUG == 1) {
+    if (DEBUG) {
       Serial.println("Button > Left pressed.");
     }
   }
   // Select.
   else if (button < 800) {
     lcd.print("Select");
-    if (DEBUG == 1) {
+    if (DEBUG) {
       Serial.println("Button > Select pressed.");
     }
     program1();
@@ -214,7 +212,7 @@ void serialCommands() {
     } else if (command.equals("program1")) {
       program1();
     } else {
-      if (DEBUG == 1) {
+      if (DEBUG) {
         Serial.println("fennecPRC > Invalid serial command.");
       }
     }
@@ -225,7 +223,7 @@ void serialCommands() {
   Buzzer.
 */
 void buzzer(String type) {
-  if (SILENT != 1) {
+  if (!SILENT) {
     // Error - 3 long A4 notes.
     if (type == "error") {
       for (int i = 0; i < 3; i++) {
@@ -241,7 +239,7 @@ void buzzer(String type) {
       buzzer("error");
       buzzer("ok");
     } else {
-      if (DEBUG == 1) {
+      if (DEBUG) {
         Serial.println("fennecPRC > Invalid buzzer type.");
       }
     }
@@ -265,7 +263,7 @@ void program1() {
   lcd.setCursor(0, 1);
   lcd.print("Temp: ");
 
-  if (DEBUG == 1) {
+  if (DEBUG) {
     Serial.println("P1 > Running Program 1 (P1)...");
   }
 
@@ -291,7 +289,7 @@ void program1() {
       lcd.print(tempC);
       lcd.print("C");
 
-      if (DEBUG == 1) {
+      if (DEBUG) {
         Serial.print("P1 > Current temperature is: ");
         Serial.print(tempC);
         Serial.println("C");
@@ -300,7 +298,7 @@ void program1() {
       lcd.setCursor(0, 1);
       lcd.print("Temp read error!");
 
-      if (DEBUG == 1) {
+      if (DEBUG) {
         Serial.println("Thermometer > Error reading temperature!");
       }
 
@@ -315,7 +313,7 @@ void program1() {
   }
   // Stop when temperature hits 0.
   tec.stop();
-  if (DEBUG == 1) {
+  if (DEBUG) {
     Serial.println("P1 > Reached 0C.");
     buzzer("ok");
   }

@@ -15,11 +15,11 @@ BTS7960::BTS7960(int RPWM, int R_EN, int R_IS, int LPWM, int L_EN, int L_IS,
   // Get pins.
   _RPWM = RPWM;
   _R_EN = R_EN;
-  _R_IS = R_IS;
+  _R_IS = R_IS; // TODO: Not used.
 
   _LPWM = LPWM;
   _L_EN = L_EN;
-  _L_IS = L_IS;
+  _L_IS = L_IS; // TODO: Not used.
 }
 
 // Begin function.
@@ -27,11 +27,9 @@ void BTS7960::begin() {
   // Setup pins.
   pinMode(this->_RPWM, OUTPUT);
   pinMode(this->_R_EN, OUTPUT);
-  // pinMode(this->_R_IS, OUTPUT); // TODO: R_IS not in use.
 
   pinMode(this->_LPWM, OUTPUT);
   pinMode(this->_L_EN, OUTPUT);
-  // pinMode(this->_L_IS, OUTPUT); // TODO: L_IS not in use.
 
   if (this->_debug) {
     Serial.println("H-Bridge > Initialised.");

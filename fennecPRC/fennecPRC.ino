@@ -20,9 +20,11 @@
     13 = TEMPERATURE_PIN
     A0 = LCD shield buttons
     A1 = BUZZER
+    A2 = NeoPixel LED ring (REMOVED)
 */
 
 #include "src/BTS7960/BTS7960.h"
+// #include <Adafruit_NeoPixel.h>
 #include <DallasTemperature.h>
 #include <LiquidCrystal.h>
 #include <OneWire.h>
@@ -87,6 +89,15 @@ LiquidCrystal lcd(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7);
 const int BUZZER = A1;
 
 /*
+  NeoPixel config.
+*/
+// const int NEOPIXEL_PIN = A2;
+// const int NEOPIXEL_PIXELS = 24;
+//
+// Adafruit_NeoPixel neopixels(NEOPIXEL_PIXELS, NEOPIXEL_PIN,
+//                             NEO_GRB + NEO_KHZ800);
+
+/*
   Setup.
 */
 void setup() {
@@ -107,6 +118,14 @@ void setup() {
   */
   pinMode(BUZZER, OUTPUT);
   buzzer("ok");
+
+  /*
+    Initialise NeoPixels.
+  */
+  // neopixels.begin();
+  // neopixels.clear();
+  // neopixels.setBrightness(64);
+  // ledRing("error");
 
   /*
     Initialise thermometer.
@@ -244,6 +263,19 @@ void buzzer(String type) {
 }
 
 /*
+  NeoPixel LED ring.
+*/
+// void ledRing(String type) {
+//   // Error
+//   if (type == "error") {
+//     for (int pixel = 0; pixel < NEOPIXEL_PIXELS; pixel++) {
+//       neopixels.setPixelColor(pixel, 0, 255, 0);
+//       neopixels.show();
+//     }
+//   }
+// }
+
+/*
   Program 1 (slow recrystallization)
   Ambient temperature minus 1C per hour until 0C.
 */
@@ -279,8 +311,8 @@ void program1() {
     serialCommands();
 
     /*
-      TODO: Drop temperature by 1C per hour.
-    */
+        TODO: Drop temperature by 1C per hour.
+      */
 
     if (tempC != DEVICE_DISCONNECTED_C) {
       lcd.setCursor(6, 1);

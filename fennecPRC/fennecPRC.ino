@@ -136,6 +136,7 @@ void setup() {
     Initialise LEDs.
   */
   pinMode(LED_GREEN, OUTPUT);
+  digitalWrite(LED_GREEN, LOW);
 
   /*
     Initialise thermometer.

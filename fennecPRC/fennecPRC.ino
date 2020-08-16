@@ -20,7 +20,7 @@
     13 = TEMPERATURE_PIN
     A0 = LCD shield buttons
     A1 = BUZZER
-    A2 = Green LED
+    A2 = LED (green)
 */
 
 #include "src/BTS7960/BTS7960.h"
@@ -333,7 +333,7 @@ void program1() {
       lcd.print("C");
 
       if (DEBUG) {
-        Serial.print("P1 > Current temperature is: ");
+        Serial.print("P1 > Temperature: ");
         Serial.print(tempC);
         Serial.println("C");
       }

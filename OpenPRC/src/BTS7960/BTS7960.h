@@ -1,7 +1,6 @@
 /*
-  fennecPRC | BTS7960 H-Bridge library.
+  OpenPRC | BTS7960 H-Bridge library.
   Programmable Recrystallization Chamber
-  https://fennecfox.io/
 */
 
 #ifndef BTS7960_H

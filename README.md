@@ -1,3 +1,3 @@
-# fennecPRC
+# OpenPRC
 
 Programmable Recrystallization Chamber

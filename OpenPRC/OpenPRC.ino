@@ -1,7 +1,6 @@
 /*
-  fennecPRC | Main.
+  OpenPRC | Main.
   Programmable Recrystallization Chamber
-  https://fennecfox.io/
 
   Pins:
     0  = Serial RX (debug)
@@ -110,10 +109,9 @@ void setup() {
     Serial.begin(9600);
 
     Serial.println("--------------------------------------");
-    Serial.print("fennecPRC v");
+    Serial.print("OpenPRC v");
     Serial.println(VERSION, 1);
     Serial.println("Programmable Recrystallization Chamber");
-    Serial.println("https://fennecfox.io/");
     Serial.println("\nSerial commands: reset, program1");
     Serial.println("--------------------------------------");
   }
@@ -160,15 +158,15 @@ void setup() {
   lcd.begin(16, 2);
 
   lcd.setCursor(0, 0);
-  lcd.print(" fennecPRC v");
+  lcd.print("  OpenPRC v");
   lcd.print(VERSION, 1);
 
   lcd.setCursor(0, 1);
-  lcd.print(" READY...");
+  lcd.print("  READY...");
 
   if (DEBUG) {
     Serial.println("LCD > Initialised.");
-    Serial.println("fennecPRC > Ready.");
+    Serial.println("OpenPRC > Ready.");
   }
 }
 
@@ -240,7 +238,7 @@ void serialCommands() {
       program1();
     } else {
       if (DEBUG) {
-        Serial.println("fennecPRC > Invalid serial command.");
+        Serial.println("OpenPRC > Invalid serial command.");
       }
     }
   }
@@ -267,7 +265,7 @@ void buzzer(String type) {
       buzzer("ok");
     } else {
       if (DEBUG) {
-        Serial.println("fennecPRC > Invalid buzzer type.");
+        Serial.println("OpenPRC > Invalid buzzer type.");
       }
     }
   }

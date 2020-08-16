@@ -20,7 +20,7 @@
     13 = TEMPERATURE_PIN
     A0 = LCD shield buttons
     A1 = BUZZER
-    A2 = NeoPixel LED ring (REMOVED)
+    A2 = Green LED
 */
 
 #include "src/BTS7960/BTS7960.h"
@@ -98,6 +98,11 @@ const int BUZZER = A1;
 //                             NEO_GRB + NEO_KHZ800);
 
 /*
+  LEDs config.
+*/
+const int LED_GREEN = A2;
+
+/*
   Setup.
 */
 void setup() {
@@ -126,6 +131,11 @@ void setup() {
   // neopixels.clear();
   // neopixels.setBrightness(64);
   // ledRing("error");
+
+  /*
+    Initialise LEDs.
+  */
+  pinMode(LED_GREEN, OUTPUT);
 
   /*
     Initialise thermometer.
@@ -280,13 +290,14 @@ void buzzer(String type) {
   Ambient temperature minus 1C per hour until 0C.
 */
 void program1() {
-  // LCD/Buzzer acknowledgement.
+  // LCD/Buzzer/LED acknowledgement.
   lcd.setCursor(0, 0);
   lcd.print("Starting (P1)...");
   lcd.setCursor(0, 1);
   lcd.print("                ");
 
   buzzer("countdown");
+  digitalWrite(LED_GREEN, HIGH);
 
   lcd.setCursor(0, 0);
   lcd.print("Running (P1)... ");

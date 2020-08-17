@@ -14,7 +14,7 @@ public:
   Programs(bool debug);
 
   void begin();
-  void 1();
+  void P1();
 
 private:
   bool _debug;

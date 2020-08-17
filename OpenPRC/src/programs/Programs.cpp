@@ -5,7 +5,7 @@
 
 #include "Programs.h"
 #include "Arduino.h"
-// #include "programs/1.h" // TODO.
+// #include "programs/P1.h" // TODO.
 
 // Constructor.
 Programs::Programs(bool debug) {
@@ -22,4 +22,4 @@ void Programs::begin() {
 }
 
 // TODO: Program 1.
-void Programs::1()() {}
+void Programs::P1() {}

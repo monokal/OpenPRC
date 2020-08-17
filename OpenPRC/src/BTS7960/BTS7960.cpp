@@ -47,10 +47,12 @@ void BTS7960::start(int percent, int direction) {
 
     // Start right.
     if (direction == 0) {
+      analogWrite(this->_LPWM, 0);
       analogWrite(this->_RPWM, percentPWM);
     }
     // Start left.
     else if (direction == 1) {
+      analogWrite(this->_RPWM, 0);
       analogWrite(this->_LPWM, percentPWM);
     }
     // Invalid.

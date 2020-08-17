@@ -55,11 +55,11 @@ DeviceAddress thermometerDeviceAddress;
 // Define pins.
 const int HBRIDGE_RPWM = 11;
 const int HBRIDGE_R_EN = 12;
-const int HBRIDGE_R_IS = 99; // TODO: Dummy value. R_IS not in use.
+const int HBRIDGE_R_IS = 99; // TODO: Dummy value. R_IS not used.
 
 const int HBRIDGE_LPWM = 3;
 const int HBRIDGE_L_EN = 2;
-const int HBRIDGE_L_IS = 99; // TODO: Dummy value. L_IS not in use.
+const int HBRIDGE_L_IS = 99; // TODO: Dummy value. L_IS not used.
 
 // H-Bridge "direction".
 const int TEC_COOL = 0;

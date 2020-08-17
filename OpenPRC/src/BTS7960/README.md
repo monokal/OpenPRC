@@ -1,1 +1,1 @@
-# BTS7960
+# OpenPRC | BTS7960 H-Bridge library
